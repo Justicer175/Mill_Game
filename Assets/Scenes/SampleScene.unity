@@ -876,6 +876,10 @@ PrefabInstance:
       propertyPath: game
       value: 
       objectReference: {fileID: 609449494}
+    - target: {fileID: 601782067624207248, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1371651901745799724, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -883,6 +887,14 @@ PrefabInstance:
     - target: {fileID: 1399426194779750816, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714554154569393816, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714554154569393816, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2819624885716720390, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_Pivot.x
@@ -968,6 +980,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4085887248564662997, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085887248564662997, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085887248564662997, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8238311249090376935, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_Name
       value: MainMenu
@@ -976,6 +1000,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9072669950672577690, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Image
+      value: 
+      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
