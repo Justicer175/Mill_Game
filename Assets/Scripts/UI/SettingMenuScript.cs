@@ -56,9 +56,10 @@ public class SettingMenuScript : MonoBehaviour
     {
         if (CheckForName() && CheckForColor() && CheckForSquares() && CheckForPieces())
         {
+            GLOBAL.instance.numberOfSquares = changedValueSquares;
+            //Debug.Log(GLOBAL.instance.numberOfSquares);
             settingsMenu.SetActive(false);
             mainMenu.SetActive(true);
-            Debug.Log(GLOBAL.instance.randomTest);
         }
 
     }

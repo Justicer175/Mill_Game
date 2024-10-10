@@ -25,6 +25,7 @@ public class MainMenuScript : MonoBehaviour
     {
         game.SetActive(true);
         mainMenu.SetActive(false);
+        GLOBAL.instance.CreateGameField();
     }
 
     public void ExitTheGame()
