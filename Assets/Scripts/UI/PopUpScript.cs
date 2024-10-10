@@ -29,7 +29,9 @@ public class PopUpScript : MonoBehaviour
     {
         SameName,
         SameColor,
-        ToManyPieces
+        ToManyPieces,
+        ToLittlePieces,
+        ToLittleSquares,
     }
 
     public enum StatePopUp

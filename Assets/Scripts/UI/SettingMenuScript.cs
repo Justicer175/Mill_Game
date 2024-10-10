@@ -18,10 +18,32 @@ public class SettingMenuScript : MonoBehaviour
     [SerializeField] private TMP_InputField p2Name;
     [SerializeField] private TMP_Dropdown p2Color;
 
+    [Header("Field")]
+    [SerializeField] private TMP_InputField squares;
+    [SerializeField] private TMP_InputField pieces;
+
+    [Header("Default values")]
+    [SerializeField] private int defaultNumberOfPieces = 9;
+    [SerializeField] private int defaultNumberOfSquares = 3;
+    [SerializeField] private string defaultP1Name = "White";
+    [SerializeField] private string defaultP2Name = "Black";
+
+    [SerializeField] private int numberOfPlacesPerSquare = 8;
+
+    //
+    private int changedValuePieces;
+    private int changedValueSquares;
+    
+    
+    //color stuff missing
+
+    //[SerializeField] private
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        changedValueSquares = defaultNumberOfSquares;
+        changedValuePieces = defaultNumberOfPieces;
     }
 
     // Update is called once per frame
@@ -32,30 +54,77 @@ public class SettingMenuScript : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        popup.ActivatePopup(PopUpScript.Errors.SameColor);
-        //if(CheckForName() && CheckForColor() && CheckForPieces())
-        //{
-        //    settingsMenu.SetActive(false);
-        //    mainMenu.SetActive(true);
-        //}
-        
-    }
-
-    private void CheckForName()
-    {
-
-    }
-
-    private void CheckForColor()
-    {
-        if(p1Color.value == p2Color.value)
+        if (CheckForName() && CheckForColor() && CheckForSquares() && CheckForPieces())
         {
+            settingsMenu.SetActive(false);
+            mainMenu.SetActive(true);
+            Debug.Log(GLOBAL.instance.randomTest);
+        }
 
+    }
+
+    private bool CheckForName()
+    {
+        //Debug.Log(p1Name.text.ToString() + " " + p2Name.text.ToString());
+        if (p1Name.text.ToString() == p2Name.text.ToString())
+        {
+            popup.ActivatePopup(PopUpScript.Errors.SameName);
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+        //return p1Name.text.ToString() != p2Name.text.ToString();
+    }
+
+    private bool CheckForColor()
+    {
+        if (p1Color.value == p2Color.value)
+        {
+            popup.ActivatePopup(PopUpScript.Errors.SameColor);
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        //return p1Color.value != p2Color.value;
+    }
+
+    private bool CheckForSquares()
+    {
+        changedValueSquares = int.Parse(squares.text);
+        //int tmpSquares = int.Parse(squares.text);
+        if(changedValueSquares <= 0)
+        {
+            popup.ActivatePopup(PopUpScript.Errors.ToLittleSquares);
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
-    private void CheckForPieces()
+    private bool CheckForPieces()
     {
-
+        changedValuePieces = int.Parse(pieces.text);
+        if(changedValuePieces <= 2)
+        {
+            popup.ActivatePopup(PopUpScript.Errors.ToLittlePieces);
+            return false;
+        }
+        else if ((changedValueSquares * 8) <= changedValuePieces)
+        {
+            popup.ActivatePopup(PopUpScript.Errors.ToManyPieces);
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        //return 
     }
 }
