@@ -485,7 +485,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 50
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -855,6 +855,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 153046830828311527, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: gameWindow
+      value: 
+      objectReference: {fileID: 2035660206}
     - target: {fileID: 177916100337564001, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: game
       value: 
@@ -975,13 +979,17 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5807532849849815907, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8238311249090376935, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_Name
       value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 8238311249090376935, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8972515552271332164, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -996,6 +1004,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+--- !u!114 &1314550217 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 153046830828311527, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+  m_PrefabInstance: {fileID: 1279859438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f80194bf4b2239e4f99d6e123e1fb55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1380220132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,15 +1276,16 @@ MonoBehaviour:
   lineHolderGO: {fileID: 325688778}
   piecesHolderGOP1: {fileID: 1380220132}
   piecesHolderGOP2: {fileID: 1385395092}
-  pauseMenu: {fileID: 0}
+  pauseMenu: {fileID: 1314550217}
+  gameLogic: {fileID: 2035660208}
   piece: {fileID: 586858337798604829, guid: 2d668daf8ba267f4c9dbcf3d4368eecb, type: 3}
   line: {fileID: 3008214086909225564, guid: c222417b07832dc45b1fd3e3ac201d7a, type: 3}
   point: {fileID: 5438123079257906348, guid: ba336c00b0ea7414e96e121769c65bd4, type: 3}
   distanceLeftRight: 5
   distanceTopBottom: 5
-  layerOfLine: 0
+  layerOfLine: 2
   layerOfPoint: 1
-  layerOfPiece: 2
+  layerOfPiece: 0
   distanceLeftRightLine: 2.5
   distanceTopBotLine: 2.5
   distanceBetweenSquares: 5
@@ -1447,13 +1467,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2035660207}
+  - component: {fileID: 2035660208}
   m_Layer: 0
   m_Name: GameWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2035660207
 Transform:
   m_ObjectHideFlags: 0
@@ -1474,6 +1495,24 @@ Transform:
   - {fileID: 1385395093}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2035660208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035660206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b491e28c79d344e835517d84167982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p1Name: {fileID: 150877185}
+  p1NumberOfPieces: {fileID: 399459815}
+  p1PiecesColor: {fileID: 861257708}
+  p2Name: {fileID: 1673495083}
+  p2NumberOfPieces: {fileID: 1542449721}
+  p2PiecesColor: {fileID: 1093756042}
 --- !u!1 &2039120247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,5 +1597,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 1555406321}
   - {fileID: 519420032}
-  - {fileID: 1279859438}
   - {fileID: 2035660207}
+  - {fileID: 1279859438}

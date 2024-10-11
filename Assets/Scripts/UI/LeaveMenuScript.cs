@@ -7,6 +7,7 @@ public class LeaveMenuScript : MonoBehaviour
 
     [Header("Menus")]
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject gameWindow;
 
     [Header("Animation going up")]
     [SerializeField] private int startingYofAnimation;
@@ -72,18 +73,22 @@ public class LeaveMenuScript : MonoBehaviour
 
     public void ContinueButton()
     {
+        GLOBAL.instance.pausedGame = false;
         gameObject.SetActive(false);
     }
 
     public void RestartButton()
     {
+        GLOBAL.instance.pausedGame = false;
         GLOBAL.instance.DeleteGameField();
         GLOBAL.instance.CreateGameField();
     }
 
     public void ReturnToMainMenuButton()
     {
+        GLOBAL.instance.pausedGame = false;
         GLOBAL.instance.DeleteGameField();
+        gameWindow.SetActive(false);
         gameObject.SetActive(false);
         mainMenu.SetActive(true);
     }

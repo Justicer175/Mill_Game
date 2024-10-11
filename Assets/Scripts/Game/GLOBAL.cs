@@ -12,6 +12,7 @@ public class GLOBAL : MonoBehaviour
     [SerializeField] private GameObject piecesHolderGOP1;
     [SerializeField] private GameObject piecesHolderGOP2;
     [SerializeField] private LeaveMenuScript pauseMenu;
+    [SerializeField] private GameLogic gameLogic;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject piece;
@@ -36,6 +37,12 @@ public class GLOBAL : MonoBehaviour
     private GameObject pointGO;
     private GameObject lineGO;
 
+    //All the values that can be changed and are used when creating a game
+
+    [System.NonSerialized] public string p1Name = "White";
+    [System.NonSerialized] public string p2Name = "Black";
+    [System.NonSerialized] public SettingMenuScript.Colors p1Color = SettingMenuScript.Colors.white;
+    [System.NonSerialized] public SettingMenuScript.Colors p2Color = SettingMenuScript.Colors.black;
 
     [System.NonSerialized] public int numberOfSquares = 3;
     [System.NonSerialized] public int numberOfPieces = 9;
@@ -46,6 +53,7 @@ public class GLOBAL : MonoBehaviour
 
     //Check if the game is running
     [System.NonSerialized] public bool gameRunning = false;
+    [System.NonSerialized] public bool pausedGame = false;
 
 
 
@@ -72,16 +80,20 @@ public class GLOBAL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameRunning && Input.GetKeyDown(KeyCode.Escape))
+        if(gameRunning && Input.GetKeyDown(KeyCode.Escape) && !pausedGame)
         {
+            pausedGame = true;
             pauseMenu.ActivateLeaveMenu();
+        }
+        else if(gameRunning && Input.GetKeyDown(KeyCode.Escape) && pausedGame)
+        {
+            pauseMenu.ContinueButton();
         }
     }
 
 
     public void CreateGameField()
     {
-        gameRunning = true;
         for (int currentSquare = 0; currentSquare < numberOfSquares; currentSquare++)
         {
             //spawn point
@@ -182,7 +194,9 @@ public class GLOBAL : MonoBehaviour
             }
         }
 
-
+        //start the game
+        gameRunning = true;
+        gameLogic.SetupField();
     }
 
     private void CreatePoint(int multiplierX, int multiplierY, int currentSquare, float layer)
@@ -215,14 +229,24 @@ public class GLOBAL : MonoBehaviour
 
     public void DeleteGameField()
     {
-        while(pointHolderGO.transform.childCount != 0)
+        foreach(Transform child in pointHolderGO.transform)
         {
-            Destroy(pointHolderGO.transform.GetChild(0));
+            GameObject.Destroy(child.gameObject);
         }
 
-        while(lineHolderGO.transform.childCount != 0)
+        foreach (Transform child in lineHolderGO.transform)
         {
-            Destroy(lineHolderGO.transform.GetChild(0));
+            GameObject.Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in piecesHolderGOP1.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in piecesHolderGOP2.transform)
+        {
+            GameObject.Destroy(child.gameObject);
         }
 
     }

@@ -5,6 +5,14 @@ using TMPro;
 
 public class SettingMenuScript : MonoBehaviour
 {
+    public enum Colors
+    {
+        white,
+        black,
+        red,
+        blue
+    }
+
     [Header("Menu")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject settingsMenu;
@@ -74,6 +82,8 @@ public class SettingMenuScript : MonoBehaviour
         }
         else
         {
+            GLOBAL.instance.p1Name = p1Name.text.ToString();
+            GLOBAL.instance.p2Name = p2Name.text.ToString();
             return true;
         }
 
@@ -89,6 +99,37 @@ public class SettingMenuScript : MonoBehaviour
         }
         else
         {
+            switch (p1Color.value)
+            {
+                case 0:
+                    GLOBAL.instance.p1Color = Colors.white;
+                    break;
+                case 1:
+                    GLOBAL.instance.p1Color = Colors.black;
+                    break;
+                case 2:
+                    GLOBAL.instance.p1Color = Colors.red;
+                    break;
+                case 3:
+                    GLOBAL.instance.p1Color = Colors.blue;
+                    break;
+            }
+
+            switch (p2Color.value)
+            {
+                case 0:
+                    GLOBAL.instance.p2Color = Colors.white;
+                    break;
+                case 1:
+                    GLOBAL.instance.p2Color = Colors.black;
+                    break;
+                case 2:
+                    GLOBAL.instance.p2Color = Colors.red;
+                    break;
+                case 3:
+                    GLOBAL.instance.p2Color = Colors.blue;
+                    break;
+            }
             return true;
         }
         //return p1Color.value != p2Color.value;
@@ -105,6 +146,7 @@ public class SettingMenuScript : MonoBehaviour
         }
         else
         {
+            GLOBAL.instance.numberOfSquares = changedValueSquares;
             return true;
         }
     }
@@ -124,6 +166,7 @@ public class SettingMenuScript : MonoBehaviour
         }
         else
         {
+            GLOBAL.instance.numberOfPieces = changedValuePieces;
             return true;
         }
         //return 
