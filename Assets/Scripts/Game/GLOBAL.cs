@@ -11,6 +11,7 @@ public class GLOBAL : MonoBehaviour
     [SerializeField] private GameObject lineHolderGO;
     [SerializeField] private GameObject piecesHolderGOP1;
     [SerializeField] private GameObject piecesHolderGOP2;
+    [SerializeField] private LeaveMenuScript pauseMenu;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject piece;
@@ -43,8 +44,9 @@ public class GLOBAL : MonoBehaviour
     [System.NonSerialized] public int numberOfExtraLines = 2;
     [System.NonSerialized] public int numberOfConnectionsBetweenSquares = 4;
 
-    [System.NonSerialized] public int randomTest = 12;
-    // Start is called before the first frame update
+    //Check if the game is running
+    [System.NonSerialized] public bool gameRunning = false;
+
 
 
 
@@ -70,12 +72,16 @@ public class GLOBAL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(gameRunning && Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseMenu.ActivateLeaveMenu();
+        }
     }
 
 
     public void CreateGameField()
     {
+        gameRunning = true;
         for (int currentSquare = 0; currentSquare < numberOfSquares; currentSquare++)
         {
             //spawn point
@@ -121,31 +127,31 @@ public class GLOBAL : MonoBehaviour
                 switch (currentLine)
                 {
                     case 0:
-                        CreateLine(-1f, 2, currentSquare, layerOfPoint,lineHorizontalScale,1,0);
+                        CreateLine(-1f, 2, currentSquare, layerOfLine, lineHorizontalScale,1,0);
                         break;
                     case 1:
-                        CreateLine(1f, 2, currentSquare, layerOfPoint, lineHorizontalScale,1,0);
+                        CreateLine(1f, 2, currentSquare, layerOfLine, lineHorizontalScale,1,0);
                         break;
                     case 2:
                         //rotate
-                        CreateLine(-2, 1, currentSquare, layerOfPoint,lineVerticalScale,0,1);
+                        CreateLine(-2, 1, currentSquare, layerOfLine, lineVerticalScale,0,1);
                         break;
                     case 3:
                         //rotate
-                        CreateLine(2, 1, currentSquare, layerOfPoint,lineVerticalScale,0,1);
+                        CreateLine(2, 1, currentSquare, layerOfLine, lineVerticalScale,0,1);
                         break;
                     case 4:
                         //middle is never used
-                        CreateLine(-2, -1, currentSquare, layerOfPoint, lineVerticalScale,0,1);
+                        CreateLine(-2, -1, currentSquare, layerOfLine, lineVerticalScale,0,1);
                         break;
                     case 5:
-                        CreateLine(2, -1, currentSquare, layerOfPoint, lineVerticalScale,0,1);
+                        CreateLine(2, -1, currentSquare, layerOfLine, lineVerticalScale,0,1);
                         break;
                     case 6:
-                        CreateLine(-1, -2, currentSquare, layerOfPoint, lineHorizontalScale,1,0);
+                        CreateLine(-1, -2, currentSquare, layerOfLine, lineHorizontalScale,1,0);
                         break;
                     case 7:
-                        CreateLine(1, -2, currentSquare, layerOfPoint, lineHorizontalScale,1,0);
+                        CreateLine(1, -2, currentSquare, layerOfLine, lineHorizontalScale,1,0);
                         break;
 
 
@@ -159,16 +165,16 @@ public class GLOBAL : MonoBehaviour
                     switch (currentConnection)
                     {
                         case 0:
-                            CreateLine(0, 3, currentSquare, layerOfPoint, lineVerticalScale,0,0,true,0,1);
+                            CreateLine(0, 3, currentSquare, layerOfLine, lineVerticalScale,0,0,true,0,1);
                             break;
                         case 1:
-                            CreateLine(-3, 0, currentSquare, layerOfPoint, lineHorizontalScale, 0, 0, true,-1,0);
+                            CreateLine(-3, 0, currentSquare, layerOfLine, lineHorizontalScale, 0, 0, true,-1,0);
                             break;
                         case 2:
-                            CreateLine(3, 0, currentSquare, layerOfPoint, lineHorizontalScale, 0, 0, true,1,0);
+                            CreateLine(3, 0, currentSquare, layerOfLine, lineHorizontalScale, 0, 0, true,1,0);
                             break;
                         case 3:
-                            CreateLine(0, -3, currentSquare, layerOfPoint, lineVerticalScale, 0, 0, true,0,-1);
+                            CreateLine(0, -3, currentSquare, layerOfLine, lineVerticalScale, 0, 0, true,0,-1);
                             break;
 
                     }
@@ -205,5 +211,19 @@ public class GLOBAL : MonoBehaviour
         pointGO.transform.parent = lineHolderGO.transform;
         scale = new Vector2(scale.x + (scaleXMultiplier * distanceBetweenSquares * currentSquare), scale.y + (scaleYMultiplier * distanceBetweenSquares * currentSquare));
         pointGO.transform.localScale = scale;
+    }
+
+    public void DeleteGameField()
+    {
+        while(pointHolderGO.transform.childCount != 0)
+        {
+            Destroy(pointHolderGO.transform.GetChild(0));
+        }
+
+        while(lineHolderGO.transform.childCount != 0)
+        {
+            Destroy(lineHolderGO.transform.GetChild(0));
+        }
+
     }
 }
