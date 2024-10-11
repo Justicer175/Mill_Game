@@ -28,13 +28,16 @@ public class GameLogic : MonoBehaviour
     [SerializeField] private TMP_Text p2NumberOfPieces;
     [SerializeField] private Image p2PiecesColor;
 
-    private StateOfGame state = StateOfGame.none;
+    //game stuff
+    // List<PositionInGame> allPositions;
+
+    //private StateOfGame state = StateOfGame.none;
 
 
     // Update is called once per frame
     void Update()
     {
-        switch (state)
+        switch (GLOBAL.instance.stateOfGame)
         {
             case StateOfGame.PlacingPieces:
                 break;
@@ -86,6 +89,17 @@ public class GameLogic : MonoBehaviour
                 break;
         }
 
-        state = StateOfGame.PlacingPieces;
+        GLOBAL.instance.p1ActualColor = p1PiecesColor.color;
+        GLOBAL.instance.p2ActualColor = p2PiecesColor.color;
+
+        GLOBAL.instance.stateOfGame = StateOfGame.PlacingPieces;
+    }
+
+    public void SetupGameLists()
+    {
+        //for(int i = 0; i < GLOBAL.instance.numberOfSquares)
+        //{
+        //    for(int i)
+        //}
     }
 }

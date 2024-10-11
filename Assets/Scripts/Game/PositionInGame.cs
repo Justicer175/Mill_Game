@@ -16,9 +16,20 @@ public class PositionInGame : MonoBehaviour
     private int layerPosition = 0;
     private Players player = Players.unused;
 
-    public PositionInGame(Vector2 position )
+    public PositionInGame(Vector2 position, Vector2 position2, int layer, Players player)
     {
         positionInGame = position;
+        positionInLogic = position2;
+        layerPosition = layer;
+        this.player = player;
+    }
+
+    public void SetAllTheValues(Vector2 position, Vector2 position2, int layer, Players player)
+    {
+        positionInGame = position;
+        positionInLogic = position2;
+        layerPosition = layer;
+        this.player = player;
     }
 
     public Vector2 GetPositionInGame()
@@ -34,5 +45,10 @@ public class PositionInGame : MonoBehaviour
     public Players GetPlayer()
     {
         return player;
+    }
+
+    public void SetPlayer(Players player)
+    {
+        this.player = player;
     }
 }

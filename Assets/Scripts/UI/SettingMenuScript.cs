@@ -35,8 +35,11 @@ public class SettingMenuScript : MonoBehaviour
     [SerializeField] private int defaultNumberOfSquares = 3;
     [SerializeField] private string defaultP1Name = "White";
     [SerializeField] private string defaultP2Name = "Black";
-
     [SerializeField] private int numberOfPlacesPerSquare = 8;
+
+    [SerializeField] private int defaultSizeOfCamera = 25;
+    [SerializeField] private int distanceToAddOnNewRing = 5;
+
 
     //
     private int changedValuePieces;
@@ -64,8 +67,8 @@ public class SettingMenuScript : MonoBehaviour
     {
         if (CheckForName() && CheckForColor() && CheckForSquares() && CheckForPieces())
         {
+            AdjustCamera();
             GLOBAL.instance.numberOfSquares = changedValueSquares;
-            //Debug.Log(GLOBAL.instance.numberOfSquares);
             settingsMenu.SetActive(false);
             mainMenu.SetActive(true);
         }
@@ -170,5 +173,21 @@ public class SettingMenuScript : MonoBehaviour
             return true;
         }
         //return 
+    }
+
+    private void AdjustCamera()
+    {
+        if(changedValueSquares == defaultNumberOfSquares)
+        {
+            GLOBAL.instance.cameraSize = defaultSizeOfCamera;
+        }
+        else if(changedValueSquares < defaultNumberOfSquares && changedValueSquares > 0)
+        {
+            GLOBAL.instance.cameraSize = defaultSizeOfCamera - distanceToAddOnNewRing;
+        }
+        else if (changedValueSquares > defaultNumberOfSquares)
+        {
+            GLOBAL.instance.cameraSize = defaultSizeOfCamera + ((changedValueSquares - defaultNumberOfSquares) * distanceToAddOnNewRing);
+        }
     }
 }
