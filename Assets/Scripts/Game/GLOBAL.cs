@@ -9,11 +9,13 @@ public class GLOBAL : MonoBehaviour
     [Header("Internal")]
     [SerializeField] private GameObject pointHolderGO;
     [SerializeField] private GameObject lineHolderGO;
-    [SerializeField] private GameObject piecesHolderGOP1;
-    [SerializeField] private GameObject piecesHolderGOP2;
+    public GameObject piecesHolderGOP1;
+    public GameObject piecesHolderGOP2;
     [SerializeField] private LeaveMenuScript pauseMenu;
     [SerializeField] private GameLogic gameLogic;
     [SerializeField] private Camera mainCamera;
+
+    public GameLogic getGameLogic { get => gameLogic; }
 
     [Header("Prefabs")]
     [SerializeField] private GameObject piece;
@@ -61,9 +63,10 @@ public class GLOBAL : MonoBehaviour
     [System.NonSerialized] public bool gameRunning = false;
     [System.NonSerialized] public bool pausedGame = false;
     [System.NonSerialized] public GameLogic.StateOfGame stateOfGame = GameLogic.StateOfGame.none;
+    [System.NonSerialized] public GameLogic.StateOfGame previousStateOfGame = GameLogic.StateOfGame.none;
 
     //game stuff
-    [System.NonSerialized] public List<PositionInGame> allPositions = new List<PositionInGame>();
+    [System.NonSerialized] public PositionInGame[,,] allPositionsArray = new PositionInGame[3,3,9];
 
 
 
@@ -219,7 +222,12 @@ public class GLOBAL : MonoBehaviour
         //set all the values
         pointGO.GetComponent<PositionInGame>().SetAllTheValues(new Vector2(pointGO.transform.position.x, pointGO.transform.position.y),
             new Vector2(coordinateX, coordinateY), currentSquare, PositionInGame.Players.unused);
-        allPositions.Add(pointGO.GetComponent<PositionInGame>());
+
+        PositionInGame posInGame = pointGO.GetComponent<PositionInGame>();
+        posInGame.SetAllTheValues(new Vector2(pointGO.transform.position.x, pointGO.transform.position.y),
+            new Vector2(coordinateX, coordinateY), currentSquare, PositionInGame.Players.unused);
+        //Debug.Log((int)posInGame.GetPositionInLogic().x + " " + (int)posInGame.GetPositionInLogic().y + " " + currentSquare);
+        allPositionsArray[(int)posInGame.GetPositionInLogic().x, (int)posInGame.GetPositionInLogic().y, currentSquare] = pointGO.GetComponent<PositionInGame>();
     }
 
     private void CreateLine(float multiplierX, float multiplierY, int currentSquare, float layer, Vector2 scale,
@@ -269,6 +277,6 @@ public class GLOBAL : MonoBehaviour
 
     public void ResetAllValues()
     {
-        allPositions = new List<PositionInGame>();
+        allPositionsArray = new PositionInGame[3, 3, numberOfSquares];
     }
 }

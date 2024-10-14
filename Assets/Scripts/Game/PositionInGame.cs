@@ -15,6 +15,7 @@ public class PositionInGame : MonoBehaviour
     private Vector2 positionInLogic = Vector2.zero;
     private int layerPosition = 0;
     private Players player = Players.unused;
+    private GameObject pieceOnPoisiton = null;
 
     public PositionInGame(Vector2 position, Vector2 position2, int layer, Players player)
     {
@@ -47,8 +48,23 @@ public class PositionInGame : MonoBehaviour
         return player;
     }
 
+    public int GetLayer()
+    {
+        return layerPosition;
+    }
+
     public void SetPlayer(Players player)
     {
         this.player = player;
+    }
+
+    public void SetPieceOnPoisiton(GameObject piece)
+    {
+        pieceOnPoisiton = piece;
+    }
+
+    public GameObject GetPieceOnPoisiton()
+    {
+        return pieceOnPoisiton;
     }
 }
