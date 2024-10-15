@@ -33,17 +33,23 @@ public class GameLogic : MonoBehaviour
     [SerializeField] private List<PositionInGame> p2Positions = new List<PositionInGame>();
 
     [Header("Texts")]
-    [SerializeField] private string placePiece = " is placing the piece";
-    [SerializeField] private string movePiece = " is moving the piece";
+    [SerializeField] private string placePiece = "is placing the piece";
+    [SerializeField] private string movePiece = "is moving the piece";
     [SerializeField] private string mill = "Mill for player ";
     [SerializeField]private string removePiece = ", please remove the piece from player";
-    [SerializeField] private string jumping = " is moving the piece with jumping.";
+    [SerializeField] private string jumping = "is moving the piece with jumping.";
+
+    [Header("Speed of piece moving")]
+    [SerializeField] private int frameToMoveOn = 10;
 
     //last player that removed the piece
     private PositionInGame.Players lastPlayer = PositionInGame.Players.unused;
     [HideInInspector] public PositionInGame.Players getLastPlayer { get => lastPlayer; }
 
-    // Update is called once per frame
+    //color objects
+    private List<PositionInGame> usedPositions = new List<PositionInGame>();
+
+
     void Update()
     {
         switch (GLOBAL.instance.stateOfGame)
@@ -63,6 +69,7 @@ public class GameLogic : MonoBehaviour
 
     public void SetupField()
     {
+        PlacingPiece(PositionInGame.Players.p1);
         p1Name.text = GLOBAL.instance.p1Name;
         p2Name.text = GLOBAL.instance.p2Name;
         p1NumberOfPieces.text = GLOBAL.instance.numberOfPieces.ToString();
@@ -122,10 +129,14 @@ public class GameLogic : MonoBehaviour
             instructions.text = (mill + GLOBAL.instance.p1Name + removePiece + " " + GLOBAL.instance.p2Name);
             lastPlayer = PositionInGame.Players.p1;
         }
-        else
+        else if(player == PositionInGame.Players.p2)
         {
             instructions.text = (mill + GLOBAL.instance.p2Name + removePiece + " " + GLOBAL.instance.p1Name);
             lastPlayer = PositionInGame.Players.p2;
+        }
+        else
+        {
+            Debug.Log("Error getting player on remove");
         }
 
         GLOBAL.instance.stateOfGame = StateOfGame.RemovingPieces;
@@ -352,4 +363,242 @@ public class GameLogic : MonoBehaviour
         }
 
     }
+
+    public void ShowPossiblePositions(PositionInGame pig)
+    {
+        usedPositions = new List<PositionInGame>();
+
+        int layer = pig.GetLayer();
+        switch (pig.GetPositionInLogic().x, pig.GetPositionInLogic().y)
+        {
+            case (0, 0):
+                if (GLOBAL.instance.allPositionsArray[0, 1, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[0, 1, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[0, 1, layer]);
+                }
+                if (GLOBAL.instance.allPositionsArray[1, 0, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[1, 0, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 0, layer]);
+                }
+                break;
+            case (0, 1):
+                if (GLOBAL.instance.allPositionsArray[0, 0, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[0, 0, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[0, 0, layer]);
+                }
+                if (GLOBAL.instance.allPositionsArray[0, 2, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[0, 2, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[0, 2, layer]);
+                }
+                //down checker
+                if (layer > 0 && GLOBAL.instance.allPositionsArray[0, 1, layer-1].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[0, 1, layer-1].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[0, 1, layer-1]);
+                }
+                //up checker
+                if (layer < GLOBAL.instance.numberOfSquares-1 && GLOBAL.instance.allPositionsArray[0, 1, layer + 1].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[0, 1, layer + 1].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[0, 1, layer + 1]);
+                }
+                break;
+            case (0, 2):
+                if (GLOBAL.instance.allPositionsArray[1, 2, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[1, 2, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 2, layer]);
+                }
+                if (GLOBAL.instance.allPositionsArray[1, 0, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[1, 0, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 0, layer]);
+                }
+                break;
+            case (1, 0):
+                if (GLOBAL.instance.allPositionsArray[0, 0, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[0, 0, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[0, 0, layer]);
+                }
+                if (GLOBAL.instance.allPositionsArray[2, 0, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[2, 0, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[2, 0, layer]);
+                }
+                //down checker
+                if (layer > 0 && GLOBAL.instance.allPositionsArray[1, 0, layer - 1].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[1, 0, layer - 1].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 0, layer - 1]);
+                }
+                //up checker
+                if (layer < GLOBAL.instance.numberOfSquares - 1 && GLOBAL.instance.allPositionsArray[1, 0, layer + 1].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[1, 0, layer + 1].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 0, layer + 1]);
+                }
+                break;
+            case (1, 1):
+                //doesnt exist
+                break;
+            case (1, 2):
+                if (GLOBAL.instance.allPositionsArray[0, 2, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[0, 2, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[0, 2, layer]);
+                }
+                if (GLOBAL.instance.allPositionsArray[2, 2, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[2, 2, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[2, 2, layer]);
+                }
+                //down checker
+                if (layer > 0 && GLOBAL.instance.allPositionsArray[1, 2, layer - 1].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[1, 2, layer - 1].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 2, layer - 1]);
+                }
+                //up checker
+                if (layer < GLOBAL.instance.numberOfSquares - 1 && GLOBAL.instance.allPositionsArray[1, 2, layer + 1].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[1, 2, layer + 1].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 2, layer + 1]);
+                }
+                break;
+            case (2, 0):
+                if (GLOBAL.instance.allPositionsArray[1, 0, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[1, 0, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 0, layer]);
+                }
+                if (GLOBAL.instance.allPositionsArray[2, 1, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[2, 1, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[2, 1, layer]);
+                }
+                break;
+            case (2, 1):
+                if (GLOBAL.instance.allPositionsArray[2, 0, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[2, 0, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[2, 0, layer]);
+                }
+                if (GLOBAL.instance.allPositionsArray[2, 2, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[2, 2, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[2, 2, layer]);
+                }
+                //down checker
+                if (layer > 0 && GLOBAL.instance.allPositionsArray[2, 1, layer - 1].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[2, 1, layer - 1].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[2, 1, layer - 1]);
+                }
+                //up checker
+                if (layer < GLOBAL.instance.numberOfSquares - 1 && GLOBAL.instance.allPositionsArray[2, 1, layer + 1].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[2, 1, layer + 1].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[2, 1, layer + 1]);
+                }
+                break;
+            case (2, 2):
+                if (GLOBAL.instance.allPositionsArray[1, 2, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[1, 2, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 2, layer]);
+                }
+                if (GLOBAL.instance.allPositionsArray[2, 1, layer].GetPlayer() == PositionInGame.Players.unused)
+                {
+                    GLOBAL.instance.allPositionsArray[2, 1, layer].GetBackgroundColor().SetActive(true);
+                    usedPositions.Add(GLOBAL.instance.allPositionsArray[2, 1, layer]);
+                }
+                break;
+
+        }
+    }
+
+    public void RemovePossiblePositions()
+    {
+        foreach(PositionInGame pig in usedPositions)
+        {
+            pig.GetBackgroundColor().SetActive(false);
+        }
+    }
+
+    public void MovePiece(PositionInGame pigStart, PositionInGame pigEnd)
+    {
+        pigStart.GetPieceOnPoisiton().transform.position = pigEnd.GetPositionInGame();
+
+        pigEnd.SetPlayer(pigStart.GetPlayer());
+        pigStart.SetPlayer(PositionInGame.Players.unused);
+
+
+        pigEnd.SetPieceOnPoisiton(pigStart.GetPieceOnPoisiton());
+        pigStart.SetPieceOnPoisiton(null);
+
+        lastPlayer = pigEnd.GetPlayer();
+
+        if(lastPlayer == PositionInGame.Players.p1)
+        {
+            MovePieceSetText(PositionInGame.Players.p2);
+        }
+        else if (lastPlayer == PositionInGame.Players.p2)
+        {
+            MovePieceSetText(PositionInGame.Players.p1);
+        }
+        else
+        {
+            Debug.Log("Error getting palyers");
+        }
+
+
+        CheckForMill(pigEnd.GetPlayer(), pigEnd.GetPositionInLogic(),pigEnd.GetLayer());
+    }
+
+    public void PlacingPiece(PositionInGame.Players player)
+    {
+        if(player == PositionInGame.Players.p1)
+        {
+            instructions.text = GLOBAL.instance.p1Name + " " + placePiece;
+            lastPlayer = PositionInGame.Players.p1;
+        }
+        else if(player == PositionInGame.Players.p2)
+        {
+            instructions.text = GLOBAL.instance.p2Name + " " + placePiece;
+            lastPlayer = PositionInGame.Players.p2;
+        }
+        else
+        {
+            Debug.Log("Error finding player");
+        }
+    }
+
+    public void MovePieceSetText(PositionInGame.Players player)
+    {
+        if (player == PositionInGame.Players.p1)
+        {
+            instructions.text = GLOBAL.instance.p1Name + " " + movePiece;
+            lastPlayer = PositionInGame.Players.p1;
+        }
+        else if (player == PositionInGame.Players.p2)
+        {
+            instructions.text = GLOBAL.instance.p2Name + " " + movePiece;
+            lastPlayer = PositionInGame.Players.p2;
+        }
+        else
+        {
+            Debug.Log("Error finding player");
+        }
+    }
+
+    private void CheckForWinner()
+    {
+
+    }
+
 }

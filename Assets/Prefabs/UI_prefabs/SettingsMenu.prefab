@@ -2137,6 +2137,8 @@ MonoBehaviour:
   defaultP1Name: White
   defaultP2Name: Black
   numberOfPlacesPerSquare: 8
+  defaultSizeOfCamera: 25
+  distanceToAddOnNewRing: 7
 --- !u!1 &2416141773501192867
 GameObject:
   m_ObjectHideFlags: 0

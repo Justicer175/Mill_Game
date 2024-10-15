@@ -16,6 +16,7 @@ public class PositionInGame : MonoBehaviour
     private int layerPosition = 0;
     private Players player = Players.unused;
     private GameObject pieceOnPoisiton = null;
+    [SerializeField] private GameObject backgroundColor;
 
     public PositionInGame(Vector2 position, Vector2 position2, int layer, Players player)
     {
@@ -66,5 +67,10 @@ public class PositionInGame : MonoBehaviour
     public GameObject GetPieceOnPoisiton()
     {
         return pieceOnPoisiton;
+    }
+
+    public GameObject GetBackgroundColor()
+    {
+        return backgroundColor;
     }
 }

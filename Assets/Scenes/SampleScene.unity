@@ -510,7 +510,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1734,11 +1734,12 @@ MonoBehaviour:
   p2NumberOfPieces: {fileID: 1542449721}
   p2PiecesColor: {fileID: 1093756042}
   p2Positions: []
-  placePiece: ' is placing the piece'
-  movePiece: ' is moving the piece'
+  placePiece: is placing the piece
+  movePiece: is moving the piece
   mill: 'Mill for player '
   removePiece: ', please remove the piece from player'
-  jumping: ' is moving the piece with jumping.'
+  jumping: is moving the piece with jumping.
+  frameToMoveOn: 10
 --- !u!1 &2039120247
 GameObject:
   m_ObjectHideFlags: 0

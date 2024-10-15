@@ -10,8 +10,9 @@ public class MouseClickChecker : MonoBehaviour
     [Header("Prefab")]
     [SerializeField] private GameObject piece;
     private GameObject pieceGO;
+    private PositionInGame pickedPiece;
 
-    private bool p1Placing = true;
+    private bool p1Playing = true;
     private int numberOfPiecesPlaced = 0;
 
     private void Awake()
@@ -39,7 +40,7 @@ public class MouseClickChecker : MonoBehaviour
         }
         else if(GLOBAL.instance.stateOfGame == GameLogic.StateOfGame.MovingPieces)
         {
-
+            MovePiece(rayHit.collider.gameObject.GetComponent<PositionInGame>());
         }
 
         //Debug.Log(rayHit.collider.gameObject.GetComponent<PositionInGame>().GetPlayer());
@@ -52,14 +53,16 @@ public class MouseClickChecker : MonoBehaviour
     {
         if(pig.GetPlayer() == PositionInGame.Players.unused)
         {
-            if (p1Placing)
+            if (p1Playing)
             {
                 pig.SetPlayer(PositionInGame.Players.p1);
                 pieceGO = Instantiate(piece, pig.GetPositionInGame(), Quaternion.identity);
                 pieceGO.GetComponent<SpriteRenderer>().color = GLOBAL.instance.p1ActualColor;
                 pieceGO.transform.parent = GLOBAL.instance.piecesHolderGOP1.transform;
-                p1Placing = false;
+                p1Playing = false;
                 pig.SetPieceOnPoisiton(pieceGO);
+
+                GLOBAL.instance.getGameLogic.PlacingPiece(PositionInGame.Players.p2);
 
                 if (numberOfPiecesPlaced >= 2)
                 {
@@ -72,22 +75,24 @@ public class MouseClickChecker : MonoBehaviour
                 pieceGO = Instantiate(piece, pig.GetPositionInGame(), Quaternion.identity);
                 pieceGO.GetComponent<SpriteRenderer>().color = GLOBAL.instance.p2ActualColor;
                 pieceGO.transform.parent = GLOBAL.instance.piecesHolderGOP2.transform;
-                p1Placing = true;
+                p1Playing = true;
                 numberOfPiecesPlaced++;
                 pig.SetPieceOnPoisiton(pieceGO);
+
+                GLOBAL.instance.getGameLogic.PlacingPiece(PositionInGame.Players.p1);
+
+                if (numberOfPiecesPlaced == GLOBAL.instance.numberOfPieces)
+                {
+                    GLOBAL.instance.getGameLogic.MovePieceSetText(PositionInGame.Players.p1);
+                    GLOBAL.instance.previousStateOfGame = GameLogic.StateOfGame.MovingPieces;
+                    GLOBAL.instance.stateOfGame = GameLogic.StateOfGame.MovingPieces;
+                }
 
                 if (numberOfPiecesPlaced >= 2)
                 {
                     GLOBAL.instance.getGameLogic.CheckForMill(PositionInGame.Players.p2, pig.GetPositionInLogic(),pig.GetLayer());
                 }
             }
-
-            if(numberOfPiecesPlaced == GLOBAL.instance.numberOfPieces)
-            {
-                GLOBAL.instance.previousStateOfGame = GameLogic.StateOfGame.MovingPieces;
-                GLOBAL.instance.stateOfGame = GameLogic.StateOfGame.MovingPieces;
-            }
-
 
         }
         else
@@ -101,21 +106,48 @@ public class MouseClickChecker : MonoBehaviour
 
         if(GLOBAL.instance.getGameLogic.getLastPlayer != pig.GetPlayer() && pig.GetPlayer() != PositionInGame.Players.unused)
         {
-            Debug.Log("Remove piece");
-            Debug.Log(pig.GetPieceOnPoisiton());
-
             GameObject piece = pig.GetPieceOnPoisiton();
 
             pig.SetPlayer(PositionInGame.Players.unused);
 
             if(piece != null){
-                //piece.SetActive(false);
                 Destroy(piece.gameObject);
                 pig.SetPieceOnPoisiton(null);
-                Debug.Log("Destroyed");
             }
 
             GLOBAL.instance.stateOfGame = GLOBAL.instance.previousStateOfGame;
+
+            if(GLOBAL.instance.previousStateOfGame == GameLogic.StateOfGame.PlacingPieces)
+            {
+                if(GLOBAL.instance.getGameLogic.getLastPlayer == PositionInGame.Players.p1)
+                {
+                    GLOBAL.instance.getGameLogic.PlacingPiece(PositionInGame.Players.p2);
+                }
+                else if(GLOBAL.instance.getGameLogic.getLastPlayer == PositionInGame.Players.p2)
+                {
+                    GLOBAL.instance.getGameLogic.PlacingPiece(PositionInGame.Players.p1);
+                }
+                else
+                {
+                    Debug.Log("Error finding last player");
+                }
+                
+            }
+            else if (GLOBAL.instance.previousStateOfGame == GameLogic.StateOfGame.MovingPieces)
+            {
+                if (GLOBAL.instance.getGameLogic.getLastPlayer == PositionInGame.Players.p1)
+                {
+                    GLOBAL.instance.getGameLogic.MovePieceSetText(PositionInGame.Players.p2);
+                }
+                else if (GLOBAL.instance.getGameLogic.getLastPlayer == PositionInGame.Players.p2)
+                {
+                    GLOBAL.instance.getGameLogic.MovePieceSetText(PositionInGame.Players.p1);
+                }
+                else
+                {
+                    Debug.Log("Error finding last player");
+                }
+            }
         }
         else
         {
@@ -123,4 +155,28 @@ public class MouseClickChecker : MonoBehaviour
         }
 
     }
+
+    private void MovePiece(PositionInGame pig)
+    {
+        if(pickedPiece == null)
+        {
+            if(GLOBAL.instance.getGameLogic.getLastPlayer == pig.GetPlayer())
+            {
+                pickedPiece = pig;
+                GLOBAL.instance.getGameLogic.ShowPossiblePositions(pig);
+            }
+        }
+        else if (pickedPiece == pig)
+        {
+            pickedPiece = null;
+            GLOBAL.instance.getGameLogic.RemovePossiblePositions();
+        }
+        else if (pig.GetBackgroundColor().activeSelf)
+        {
+            GLOBAL.instance.getGameLogic.MovePiece(pickedPiece, pig);
+            GLOBAL.instance.getGameLogic.RemovePossiblePositions();
+            pickedPiece = null;
+        }
+    }
+
 }
