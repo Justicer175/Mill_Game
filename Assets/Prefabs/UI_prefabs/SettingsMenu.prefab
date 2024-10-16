@@ -376,10 +376,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8578798423417248130}
+        m_TargetAssemblyTypeName: SettingMenuScript, Assembly-CSharp
+        m_MethodName: ChangeVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &409062566484002119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,6 +2144,7 @@ MonoBehaviour:
   p2Color: {fileID: 4373497770409682}
   squares: {fileID: 8416615761729905874}
   pieces: {fileID: 1702675175632466986}
+  volume: {fileID: 5364403362897432019}
   defaultNumberOfPieces: 9
   defaultNumberOfSquares: 3
   defaultP1Name: White

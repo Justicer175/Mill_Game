@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class SettingMenuScript : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class SettingMenuScript : MonoBehaviour
     [Header("Field")]
     [SerializeField] private TMP_InputField squares;
     [SerializeField] private TMP_InputField pieces;
+    [SerializeField] private Slider volume;
 
     [Header("Default values")]
     [SerializeField] private int defaultNumberOfPieces = 9;
@@ -40,28 +42,16 @@ public class SettingMenuScript : MonoBehaviour
     [SerializeField] private int defaultSizeOfCamera = 25;
     [SerializeField] private int distanceToAddOnNewRing = 5;
 
-
-    //
     private int changedValuePieces;
     private int changedValueSquares;
     
-    
-    //color stuff missing
-
-    //[SerializeField] private
-
-    // Start is called before the first frame update
     void Start()
     {
         changedValueSquares = defaultNumberOfSquares;
         changedValuePieces = defaultNumberOfPieces;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     public void ReturnToMenu()
     {
@@ -77,7 +67,6 @@ public class SettingMenuScript : MonoBehaviour
 
     private bool CheckForName()
     {
-        //Debug.Log(p1Name.text.ToString() + " " + p2Name.text.ToString());
         if (p1Name.text.ToString() == p2Name.text.ToString())
         {
             popup.ActivatePopup(PopUpScript.Errors.SameName);
@@ -89,8 +78,6 @@ public class SettingMenuScript : MonoBehaviour
             GLOBAL.instance.p2Name = p2Name.text.ToString();
             return true;
         }
-
-        //return p1Name.text.ToString() != p2Name.text.ToString();
     }
 
     private bool CheckForColor()
@@ -135,13 +122,11 @@ public class SettingMenuScript : MonoBehaviour
             }
             return true;
         }
-        //return p1Color.value != p2Color.value;
     }
 
     private bool CheckForSquares()
     {
         changedValueSquares = int.Parse(squares.text);
-        //int tmpSquares = int.Parse(squares.text);
         if(changedValueSquares <= 0)
         {
             popup.ActivatePopup(PopUpScript.Errors.ToLittleSquares);
@@ -172,7 +157,6 @@ public class SettingMenuScript : MonoBehaviour
             GLOBAL.instance.numberOfPieces = changedValuePieces;
             return true;
         }
-        //return 
     }
 
     private void AdjustCamera()
@@ -189,5 +173,10 @@ public class SettingMenuScript : MonoBehaviour
         {
             GLOBAL.instance.cameraSize = defaultSizeOfCamera + ((changedValueSquares - defaultNumberOfSquares) * distanceToAddOnNewRing);
         }
+    }
+
+    public void ChangeVolume()
+    {
+        AudioListener.volume = volume.value;
     }
 }

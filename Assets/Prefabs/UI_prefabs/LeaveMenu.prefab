@@ -979,10 +979,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 0}
+  gameWindow: {fileID: 0}
   startingYofAnimation: -540
   endingYofAnimation: 0
   pixelsToMove: 5
-  frameToMoveOn: 5
+  frameToMoveOn: 3
 --- !u!1 &6564436681011590283
 GameObject:
   m_ObjectHideFlags: 0

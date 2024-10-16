@@ -23,8 +23,6 @@ public class PopUpScript : MonoBehaviour
     [SerializeField] private string sameColor;
     [SerializeField] private string toManyPieces;
 
-    //public static final Integer field = 200;
-
     public enum Errors
     {
         SameName,

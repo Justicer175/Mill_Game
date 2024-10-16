@@ -92,15 +92,17 @@ public class GLOBAL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameRunning && Input.GetKeyDown(KeyCode.Escape) && !pausedGame)
+        if(gameRunning && Input.GetKeyDown(KeyCode.Escape) && !pausedGame && !gameLogic.gameEnded)
         {
             pausedGame = true;
             pauseMenu.ActivateLeaveMenu();
         }
-        else if(gameRunning && Input.GetKeyDown(KeyCode.Escape) && pausedGame)
+        else if(gameRunning && Input.GetKeyDown(KeyCode.Escape) && pausedGame && !gameLogic.gameEnded)
         {
             pauseMenu.ContinueButton();
         }
+
+        //add movement to camera
     }
 
 
