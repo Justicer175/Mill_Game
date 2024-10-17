@@ -304,10 +304,12 @@ MonoBehaviour:
   startingYofAnimation: -540
   endingYofAnimation: 0
   pixelsToMove: 5
-  frameToMoveOn: 3
+  frameToMoveOn: 1
   sameName: Players can't have the same name!
   sameColor: Players can't have the same color of chips!
   toManyPieces: To many pieces compared to board size!
+  toLittlePieces: There should be atleast 3 pieces in the game
+  toLittleSquares: There cant be less than 1 square
 --- !u!1 &5004601396533205566
 GameObject:
   m_ObjectHideFlags: 0

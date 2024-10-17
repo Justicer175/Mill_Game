@@ -983,7 +983,7 @@ MonoBehaviour:
   startingYofAnimation: -540
   endingYofAnimation: 0
   pixelsToMove: 5
-  frameToMoveOn: 3
+  frameToMoveOn: 1
 --- !u!1 &6564436681011590283
 GameObject:
   m_ObjectHideFlags: 0

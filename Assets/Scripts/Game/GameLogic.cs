@@ -637,22 +637,22 @@ public class GameLogic : MonoBehaviour
         {
             pigStart.SetPlayer(PositionInGame.Players.unused);
             pigStart.SetPieceOnPoisiton(null);
+            CheckForMill(pigEnd.GetPlayer(), pigEnd.GetPositionInLogic(), pigEnd.GetLayer());
         }
 
 
-        CheckForMill(pigEnd.GetPlayer(), pigEnd.GetPositionInLogic(),pigEnd.GetLayer());
     }
 
     public void PlacingPiece(PositionInGame.Players player)
     {
         if(player == PositionInGame.Players.p1)
         {
-            instructions.text = GLOBAL.instance.p1Name + " " + placePiece;
+            instructions.text = GLOBAL.instance.p1Name + " " + placePiece + " " + (numberOfPiecesPlaced+1);
             lastPlayer = PositionInGame.Players.p1;
         }
         else if(player == PositionInGame.Players.p2)
         {
-            instructions.text = GLOBAL.instance.p2Name + " " + placePiece;
+            instructions.text = GLOBAL.instance.p2Name + " " + placePiece + " " + (numberOfPiecesPlaced+1);
             lastPlayer = PositionInGame.Players.p2;
         }
         else
@@ -892,6 +892,7 @@ public class GameLogic : MonoBehaviour
         pigStart.GetPieceOnPoisiton().transform.position = pigEnd.GetPositionInGame();
         pigStart.SetPlayer(PositionInGame.Players.unused);
         pigStart.SetPieceOnPoisiton(null);
+        CheckForMill(pigEnd.GetPlayer(), pigEnd.GetPositionInLogic(), pigEnd.GetLayer());
     }
 
 }

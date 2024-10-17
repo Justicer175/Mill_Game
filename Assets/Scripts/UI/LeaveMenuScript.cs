@@ -49,6 +49,7 @@ public class LeaveMenuScript : MonoBehaviour
     {
         gameObject.SetActive(true);
         transformOfLeaveMenu = gameObject.GetComponent<RectTransform>();
+        gameObject.transform.position = new Vector2(gameObject.transform.position.x, startingYofAnimation);
         state = PopUpScript.StatePopUp.GoUp;
     }
 

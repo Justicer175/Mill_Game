@@ -22,6 +22,8 @@ public class PopUpScript : MonoBehaviour
     [SerializeField] private string sameName;
     [SerializeField] private string sameColor;
     [SerializeField] private string toManyPieces;
+    [SerializeField] private string toLittlePieces;
+    [SerializeField] private string toLittleSquares;
 
     public enum Errors
     {
@@ -63,7 +65,6 @@ public class PopUpScript : MonoBehaviour
         gameObject.SetActive(true);
         transformOfPopup = gameObject.GetComponent<RectTransform>();
         state = StatePopUp.GoUp;
-        //Debug.Log(gameObject.transform.position.x + " "+ gameObject.transform.position.y);
         gameObject.transform.position = new Vector2(gameObject.transform.position.x, startingYofAnimation);
 
         switch (error)
@@ -76,6 +77,12 @@ public class PopUpScript : MonoBehaviour
                 break;
             case Errors.ToManyPieces:
                 textField.text = toManyPieces;
+                break;
+            case Errors.ToLittlePieces:
+                textField.text = toLittlePieces;
+                break;
+            case Errors.ToLittleSquares:
+                textField.text = toLittleSquares;
                 break;
             default:
                 textField.text = "Not defined error, Please define it in code";

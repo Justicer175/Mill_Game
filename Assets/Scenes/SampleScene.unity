@@ -530,7 +530,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: ae1cfa6e4556e48418a2ecf5826bd43e, type: 3}
   m_Resource: {fileID: 8300000, guid: ae1cfa6e4556e48418a2ecf5826bd43e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.7
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -969,6 +969,10 @@ PrefabInstance:
       propertyPath: gameWindow
       value: 
       objectReference: {fileID: 2035660206}
+    - target: {fileID: 153046830828311527, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: pixelsToMove
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 177916100337564001, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: game
       value: 
@@ -1112,6 +1116,14 @@ PrefabInstance:
     - target: {fileID: 6369757575510531007, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: noMorePieces
       value: is the WINNER because
+      objectReference: {fileID: 0}
+    - target: {fileID: 6369757575510531007, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: pixelsToMove
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8191578657453490650, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: pixelsToMove
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8238311249090376935, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_Name
@@ -1764,6 +1776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 2035660209}
   placingPiece: {fileID: 8300000, guid: 4e06efc275adfe144858f6e8774e9458, type: 3}
+  errorSound: {fileID: 8300000, guid: 6dabc8d85447dbb4c994ee4174386726, type: 3}
   piece: {fileID: 586858337798604829, guid: 2d668daf8ba267f4c9dbcf3d4368eecb, type: 3}
 --- !u!114 &1970766370
 MonoBehaviour:

@@ -8,6 +8,7 @@ public class MouseClickChecker : MonoBehaviour
     [Header("Sound")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip placingPiece;
+    [SerializeField] private AudioClip errorSound;
 
     [Header("Prefab")]
     [SerializeField] private GameObject piece;
@@ -210,6 +211,11 @@ public class MouseClickChecker : MonoBehaviour
             GLOBAL.instance.getGameLogic.MovePiece(pickedPiece, pig);
             GLOBAL.instance.getGameLogic.RemovePossiblePositions();
             pickedPiece = null;
+        }
+        else
+        {
+            audioSource.clip = errorSound;
+            audioSource.Play();
         }
 
         //GLOBAL.instance.getGameLogic.CheckForWinner();

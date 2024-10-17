@@ -129,4 +129,12 @@ public class WinnerPopupScript : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public void RestartButton()
+    {
+        gameObject.SetActive(false);
+        GLOBAL.instance.pausedGame = false;
+        GLOBAL.instance.DeleteGameField();
+        GLOBAL.instance.CreateGameField();
+    }
 }
