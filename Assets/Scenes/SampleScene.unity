@@ -971,7 +971,7 @@ PrefabInstance:
       objectReference: {fileID: 2035660206}
     - target: {fileID: 153046830828311527, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: pixelsToMove
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 177916100337564001, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: game
@@ -1119,11 +1119,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6369757575510531007, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: pixelsToMove
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8191578657453490650, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: pixelsToMove
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8238311249090376935, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_Name

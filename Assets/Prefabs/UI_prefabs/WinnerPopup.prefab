@@ -444,7 +444,7 @@ MonoBehaviour:
   state: 0
   startingYofAnimation: -540
   endingYofAnimation: 0
-  pixelsToMove: 5
+  pixelsToMove: 20
   frameToMoveOn: 1
   noMoreMoves: is the WINNER because
   noMoreMoves2: can't make any more moves

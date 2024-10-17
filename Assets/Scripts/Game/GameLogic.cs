@@ -452,9 +452,9 @@ public class GameLogic : MonoBehaviour
                         GLOBAL.instance.allPositionsArray[1, 2, layer].GetBackgroundColor().SetActive(true);
                         usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 2, layer]);
                     }
-                    if (GLOBAL.instance.allPositionsArray[1, 0, layer].GetPlayer() == PositionInGame.Players.unused)
+                    if (GLOBAL.instance.allPositionsArray[0, 1, layer].GetPlayer() == PositionInGame.Players.unused)
                     {
-                        GLOBAL.instance.allPositionsArray[1, 0, layer].GetBackgroundColor().SetActive(true);
+                        GLOBAL.instance.allPositionsArray[0, 1, layer].GetBackgroundColor().SetActive(true);
                         usedPositions.Add(GLOBAL.instance.allPositionsArray[1, 0, layer]);
                     }
                     break;
@@ -681,9 +681,7 @@ public class GameLogic : MonoBehaviour
 
     public void CheckForWinner(PositionInGame.Players player)
     {
-        //Debug.Log(GLOBAL.instance.getGameLogic.numberOfPiecesPlaced);
-        //Debug.Log(GLOBAL.instance.numberOfPieces);
-        if (GLOBAL.instance.getGameLogic.numberOfPiecesPlaced != GLOBAL.instance.numberOfPieces) return;
+        if (numberOfPiecesPlaced != GLOBAL.instance.numberOfPieces) return;
 
         if (player == PositionInGame.Players.p1)
         {
@@ -883,7 +881,7 @@ public class GameLogic : MonoBehaviour
 
     private IEnumerator MovePieceCorutine(PositionInGame pigStart, PositionInGame pigEnd)
     {
-        float step = speed * Time.deltaTime;
+        float step = speed * (pigStart.GetLayer()+1) * Time.deltaTime;
         do
         {
             pigStart.GetPieceOnPoisiton().transform.position = Vector2.MoveTowards(pigStart.GetPieceOnPoisiton().transform.position, pigEnd.GetPositionInGame(), step);

@@ -53,6 +53,7 @@ public class MouseClickChecker : MonoBehaviour
 
     private void SpawnaPiece(PositionInGame pig)
     {
+        pickedPiece = null;
         if(pig.GetPlayer() == PositionInGame.Players.unused)
         {
             //play audio

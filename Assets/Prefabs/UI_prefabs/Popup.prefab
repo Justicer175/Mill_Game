@@ -303,7 +303,7 @@ MonoBehaviour:
   state: 0
   startingYofAnimation: -540
   endingYofAnimation: 0
-  pixelsToMove: 5
+  pixelsToMove: 20
   frameToMoveOn: 1
   sameName: Players can't have the same name!
   sameColor: Players can't have the same color of chips!

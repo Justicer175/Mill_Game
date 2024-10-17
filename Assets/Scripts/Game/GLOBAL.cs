@@ -248,6 +248,7 @@ public class GLOBAL : MonoBehaviour
 
     public void DeleteGameField()
     {
+        gameRunning = false;
         foreach(Transform child in pointHolderGO.transform)
         {
             GameObject.Destroy(child.gameObject);
@@ -273,5 +274,6 @@ public class GLOBAL : MonoBehaviour
     public void ResetAllValues()
     {
         allPositionsArray = new PositionInGame[3, 3, numberOfSquares];
+        gameLogic.numberOfPiecesPlaced = 0;
     }
 }
