@@ -79,6 +79,7 @@ public class LeaveMenuScript : MonoBehaviour
 
     public void RestartButton()
     {
+        gameObject.SetActive(false);
         GLOBAL.instance.pausedGame = false;
         GLOBAL.instance.DeleteGameField();
         GLOBAL.instance.CreateGameField();

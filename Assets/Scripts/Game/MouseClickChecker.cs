@@ -126,11 +126,6 @@ public class MouseClickChecker : MonoBehaviour
             //remove from list of player
             if (pig.GetPlayer() == PositionInGame.Players.p1)
             {
-                foreach(PositionInGame pig2 in GLOBAL.instance.getGameLogic.p1Positions)
-                {
-                    Debug.Log(pig2.GetPositionInLogic());
-                }
-                Debug.Log(pig.GetPositionInLogic());
                 GLOBAL.instance.getGameLogic.p1Positions.Remove(pig);
                 GLOBAL.instance.getGameLogic.CheckForWinner(PositionInGame.Players.p1);
             }

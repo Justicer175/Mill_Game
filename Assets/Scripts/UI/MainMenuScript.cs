@@ -15,12 +15,6 @@ public class MainMenuScript : MonoBehaviour
         settingsMenu.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void StartTheGame()
     {
         game.SetActive(true);
@@ -30,7 +24,6 @@ public class MainMenuScript : MonoBehaviour
 
     public void ExitTheGame()
     {
-        //SoundManager.Instance.PlaySFX(GLOBAL.instance.audioCollection.sfxBack);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -45,9 +38,4 @@ public class MainMenuScript : MonoBehaviour
         settingsMenu.SetActive(true);
     }
 
-    private void BackSettingsMenu()
-    {
-        //add if same name checker
-
-    }
 }

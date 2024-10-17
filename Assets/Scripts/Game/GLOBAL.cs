@@ -84,11 +84,6 @@ public class GLOBAL : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -101,8 +96,6 @@ public class GLOBAL : MonoBehaviour
         {
             pauseMenu.ContinueButton();
         }
-
-        //add movement to camera
     }
 
 

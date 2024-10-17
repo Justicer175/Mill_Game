@@ -1109,6 +1109,10 @@ PrefabInstance:
       propertyPath: winnerSound
       value: 
       objectReference: {fileID: 8300000, guid: 34f4eadea3c61fe43aa2b8c0b540a94a, type: 3}
+    - target: {fileID: 6369757575510531007, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
+      propertyPath: noMorePieces
+      value: is the WINNER because
+      objectReference: {fileID: 0}
     - target: {fileID: 8238311249090376935, guid: f9b3fc9e50153454c88e25cb730ab3d9, type: 3}
       propertyPath: m_Name
       value: MainMenu
@@ -1873,7 +1877,7 @@ MonoBehaviour:
   mill: 'Mill for player '
   removePiece: ', please remove the piece from player'
   jumping: is moving the piece with jumping.
-  frameToMoveOn: 10
+  speed: 20
   numberOfPiecesPlaced: 0
   gameEnded: 0
 --- !u!82 &2035660209

@@ -37,7 +37,6 @@ public class WinnerPopupScript : MonoBehaviour
 
     private void Update()
     {
-        //create animation going up
         switch (state)
         {
             case PopUpScript.StatePopUp.GoUp:
@@ -100,7 +99,6 @@ public class WinnerPopupScript : MonoBehaviour
 
     public void LeavePopUp()
     {
-        //state = PopUpScript.StatePopUp.GoDown;
         GLOBAL.instance.pausedGame = false;
         GLOBAL.instance.DeleteGameField();
         gameWindow.SetActive(false);
